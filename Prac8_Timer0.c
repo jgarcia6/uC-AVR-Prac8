@@ -2,14 +2,26 @@
 #include "Timer0.h"
 /* incluir lo necesario para hacer uso de UART0 */
 
-/* Implementar */
-void UART0_AutoBaudRate(void);
-void Clock_Ini(uint64_t millis);
-void Clock_Date_Display();
+void UART0_AutoBaudRate(void)
+{
+    /* Implementar */
+}
+
+void Clock_Ini(uint64_t millis)
+{
+    /* Implementar */
+}
+
+void Clock_Date_Display()
+{
+    /* Implementar */
+    UART_puts(0,'+1s\n\r');
+}
 
 int main()
 {
     /* llamar a función para inicializar puertos E/S */
+    DDRB |= 1 << PB7;
     /* llamar a función para inicializar UART0 */
 
     UART0_AutoBaudRate();
@@ -29,8 +41,10 @@ int main()
         if( Timer0_SecFlag() )
         { /* ¿ha pasado un Segundo? */
             UART_gotoxy(0,5,2);
-            Clock_Display();
+            Clock_Date_Display();
             UART_gotoxy(0,5,3);
+            /* Parpadea LED L */
+            PINB = 1 << PB7;
         }
     } /* fin del loop principal */
     return 0; /* <-- no se llega aquí */
